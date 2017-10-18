@@ -1,0 +1,201 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+<link rel="import" href="../../bower_components/polymerfire/polymerfire.html">
+
+<dom-module id="help-queue">
+  <template>
+    <style>
+
+      :host {
+        display: block;
+      }
+
+			* {
+				font-family: Roboto, sans-serif;
+			}
+
+			#container {
+				max-width: 800px;
+				margin: auto;
+				padding: .5em;
+			}
+
+			table {
+				border-collapse: collapse;
+			}
+
+			td {
+				border: solid black 1px;
+				padding: .5em;
+			}
+
+			footer {
+				text-align: center;
+				color: #898989;
+				padding: 1em;
+			}
+
+			input {
+				padding: .5em;
+				font-size: 1em;
+			}
+
+			button {
+				font-size: 1em;
+				padding: .5em .8em;
+				border-radius: 2px;
+				border: none;
+				background-color: #ededed;
+				cursor: pointer;
+			}
+
+			button:hover {
+				background-color: #ababab;
+			}
+
+    </style>
+
+		<firebase-app
+			name="help-queue"
+		  auth-domain="byu-cs-260-help-queue.firebaseapp.com"
+		  database-url="https://byu-cs-260-help-queue.firebaseio.com/"
+		  api-key="AIzaSyAQECxlTrS8WhogEt3s_Jw55YAS5hPKM0Q">
+		</firebase-app>
+		<firebase-query
+			id="fire-query"
+			app-name="help-queue"
+			path=[[path]]
+			data="{{students}}"
+			order-by-key
+			log>
+		</firebase-query>
+		<firebase-document
+			id="fire-doc"
+			app-name="help-queue"
+		  path="[[studentId]]"
+		  data="{{studentData}}">
+		</firebase-document>
+
+		<div id="container">
+
+			<h1>BYU CS 260 Help Queue</h1>
+			<p>The help queue is first in, first out.</p>
+			<p>
+				<iron-input on-keydown="addStudentEnter" bind-value="{{bindValue}}"><input id="name" value="{{student.name::input}}" placeholder="Enter your name..."></iron-input></iron-input>
+				<button on-tap="addStudent">Add</button>
+			</p>
+
+			<h2>Queue</h2>
+			<table id="queue">
+				<tr>
+					<td>Position</td>
+					<td>Name</td>
+					<td>Time Waiting</td>
+					<td>Remove</td>
+				</tr>
+				<template is="dom-repeat" items="[[students]]" as="student">
+					<tr>
+						<td>[[addOne(index)]]</td>
+						<td>[[student.name]]</td>
+						<td>[[calcTime(student.timeStamp)]]</td>
+						<td><button on-tap="removeStudent" key="[[student.$key]]">Remove</button></td>
+					</tr>
+				</template>
+			</table>
+
+		</div>
+
+  </template>
+
+	<script src="/node_modules/moment/moment.js"></script>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class HelpQueue extends Polymer.GestureEventListeners(Polymer.Element) {
+
+      static get is() { return 'help-queue'; }
+
+      static get properties() {
+        return {
+					students: {
+						type: Array,
+						value: [
+							{
+								name: 'Brandon',
+								timeStamp: 'yo'
+							}
+						]
+					},
+					student: {
+						type: Object,
+						value: {
+							name: '',
+							timeStamp: ''
+						}
+					},
+					path: {
+						type: String,
+						value: 'students'
+					}
+        };
+      }
+
+			connectedCallback() {
+				super.connectedCallback();
+				this.shadowRoot.querySelector('#name').select();
+				moment.updateLocale('en', {
+					relativeTime : {
+						future: 'in %s',
+						past:	 '%s',
+						s:	'%ds',
+						mm: '%dm',
+						h:	'%dh',
+						hh: '%dh',
+						dd: '%dd',
+						M:	'one month',
+						MM: '%d months',
+						y:	'one year',
+						yy: '%d years'
+					}
+				});
+				console.log('Contribute: https://github.com/intcreator/byu-cs-260-help-queue');
+			}
+
+			addOne(position) {
+				return position + 1;
+			}
+
+			calcTime(timeStamp) {
+				return moment(timeStamp).fromNow();
+			}
+
+			addStudentEnter(e) {
+				if(e.keyCode === 13) this.addStudent();
+			}
+
+			addStudent() {
+				this.$['fire-doc'].data = {
+					name: this.student.name,
+					timeStamp: moment().toISOString()
+				};
+				this.$['fire-doc'].saveValue(this.path);
+				this.$['fire-doc'].reset();
+				this.set('student.name', '');
+			}
+
+			removeStudent(e) {
+				this.$['fire-doc'].setStoredValue(this.path + "/" + e.target.key, null);
+			}
+
+    }
+
+    window.customElements.define(HelpQueue.is, HelpQueue);
+  </script>
+
+
+
+</dom-module>

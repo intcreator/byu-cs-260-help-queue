@@ -1,0 +1,11 @@
+{
+  "name": "byu-cs-260-help-queue",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Help queue for the BYU CS 260 class",
+  "dependencies": {
+    "firebase-admin": "^5.4.1",
+    "firebase-functions": "^0.7.0",
+    "moment": "^2.19.1"
+  }
+}

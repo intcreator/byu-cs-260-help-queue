@@ -1,0 +1,7 @@
+{
+  "name": "BYU CS 260 Help Queue",
+  "short_name": "BYU CS 260 Help Queue",
+  "description": "Help queue for the BYU CS 260 class",
+  "start_url": "/",
+  "display": "standalone"
+}

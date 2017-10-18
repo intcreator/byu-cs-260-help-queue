@@ -1,0 +1,64 @@
+[debug] [2017-10-13T23:10:45.150Z] ----------------------------------------------------------------------
+[debug] [2017-10-13T23:10:45.153Z] Command:       /Users/Brandon/.nvm/versions/node/v6.11.1/bin/node /Users/Brandon/.nvm/versions/node/v6.11.1/bin/firebase serve --only functions,hosting -p 5002
+[debug] [2017-10-13T23:10:45.154Z] CLI Version:   3.13.1
+[debug] [2017-10-13T23:10:45.154Z] Platform:      darwin
+[debug] [2017-10-13T23:10:45.154Z] Node Version:  v6.11.1
+[debug] [2017-10-13T23:10:45.155Z] Time:          Fri Oct 13 2017 17:10:45 GMT-0600 (MDT)
+[debug] [2017-10-13T23:10:45.155Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-10-13T23:10:45.169Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-10-13T23:10:45.170Z] > authorizing via signed-in user
+[debug] [2017-10-13T23:10:45.172Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/byu-cs-260-help-queue  
+ Fri Oct 13 2017 17:10:45 GMT-0600 (MDT)
+[debug] [2017-10-13T23:10:45.535Z] <<< HTTP RESPONSE 200
+[debug] [2017-10-13T23:10:45.536Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/byu-cs-260-help-queue/tokens  
+ Fri Oct 13 2017 17:10:45 GMT-0600 (MDT)
+[debug] [2017-10-13T23:10:45.876Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/Brandon/Documents/Career/TA/Help Queue'...
+[info] 
+[debug] [2017-10-13T23:10:45.880Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/byu-cs-260-help-queue  
+ Fri Oct 13 2017 17:10:45 GMT-0600 (MDT)
+[debug] [2017-10-13T23:10:46.381Z] <<< HTTP RESPONSE 200
+[debug] [2017-10-13T23:10:46.382Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1001094226493/clients/_:getWebAppConfig  
+ Fri Oct 13 2017 17:10:46 GMT-0600 (MDT)
+[debug] [2017-10-13T23:10:46.893Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5002
+
+[debug] [2017-10-18T21:16:06.500Z] ----------------------------------------------------------------------
+[debug] [2017-10-18T21:16:06.504Z] Command:       /Users/Brandon/.nvm/versions/node/v6.3.1/bin/node /Users/Brandon/.nvm/versions/node/v6.3.1/bin/firebase serve
+[debug] [2017-10-18T21:16:06.505Z] CLI Version:   3.13.1
+[debug] [2017-10-18T21:16:06.505Z] Platform:      darwin
+[debug] [2017-10-18T21:16:06.505Z] Node Version:  v6.3.1
+[debug] [2017-10-18T21:16:06.506Z] Time:          Wed Oct 18 2017 15:16:06 GMT-0600 (MDT)
+[debug] [2017-10-18T21:16:06.506Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-10-18T21:16:06.526Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-10-18T21:16:06.526Z] > authorizing via signed-in user
+[debug] [2017-10-18T21:16:06.528Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-10-18T21:16:06.528Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/1Y5EN9qxBUjaqZVHh1rwn1VsRWEBdjq4yYiAESCj_GICRDfkcI2V1QipBagVeTpU',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Oct 18 2017 15:16:06 GMT-0600 (MDT)
+[debug] [2017-10-18T21:16:06.799Z] <<< HTTP RESPONSE 200
+[debug] [2017-10-18T21:16:06.802Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/byu-cs-260-help-queue  
+ Wed Oct 18 2017 15:16:06 GMT-0600 (MDT)
+[debug] [2017-10-18T21:16:07.267Z] <<< HTTP RESPONSE 200
+[debug] [2017-10-18T21:16:07.268Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/byu-cs-260-help-queue/tokens  
+ Wed Oct 18 2017 15:16:07 GMT-0600 (MDT)
+[debug] [2017-10-18T21:16:07.643Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/Brandon/Documents/Career/TA/Help Queue'...
+[info] 
+[debug] [2017-10-18T21:16:07.647Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/byu-cs-260-help-queue  
+ Wed Oct 18 2017 15:16:07 GMT-0600 (MDT)
+[debug] [2017-10-18T21:16:08.189Z] <<< HTTP RESPONSE 200
+[debug] [2017-10-18T21:16:08.189Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1001094226493/clients/_:getWebAppConfig  
+ Wed Oct 18 2017 15:16:08 GMT-0600 (MDT)
+[debug] [2017-10-18T21:16:08.785Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+
