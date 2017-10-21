@@ -54,6 +54,11 @@
 				background-color: #ababab;
 			}
 
+			button:disabled {
+				background-color: #ededed;
+				cursor: default;
+			}
+
     </style>
 
 		<firebase-app
@@ -83,26 +88,28 @@
 			<p>The help queue is first in, first out.</p>
 			<p>
 				<iron-input on-keydown="addStudentEnter" bind-value="{{bindValue}}"><input id="name" value="{{student.name::input}}" placeholder="Enter your name..."></iron-input></iron-input>
-				<button on-tap="addStudent">Add</button>
+				<button disabled$="[[negate(student.name.length)]]" on-tap="addStudent">Add</button>
 			</p>
-
 			<h2>Queue</h2>
-			<table id="queue">
-				<tr>
-					<td>Position</td>
-					<td>Name</td>
-					<td>Time Waiting</td>
-					<td>Remove</td>
-				</tr>
-				<template is="dom-repeat" items="[[students]]" as="student">
+			<p hidden$="[[!negate(students.length)]]">Queue is empty!</p>
+			<div hidden$="[[negate(students.length)]]">
+				<table id="queue">
 					<tr>
-						<td>[[addOne(index)]]</td>
-						<td>[[student.name]]</td>
-						<td>[[calcTime(student.timeStamp)]]</td>
-						<td><button on-tap="removeStudent" key="[[student.$key]]">Remove</button></td>
+						<td>Position</td>
+						<td>Name</td>
+						<td>Time Waiting</td>
+						<td>Remove</td>
 					</tr>
-				</template>
-			</table>
+					<template is="dom-repeat" items="[[students]]" as="student">
+						<tr>
+							<td>[[addOne(index)]]</td>
+							<td>[[student.name]]</td>
+							<td>[[calcTime(student.timeStamp, currentTime)]]</td>
+							<td><button on-tap="removeStudent" key="[[student.$key]]">Remove</button></td>
+						</tr>
+					</template>
+				</table>
+			</div>
 
 		</div>
 
@@ -140,6 +147,9 @@
 					path: {
 						type: String,
 						value: 'students'
+					},
+					currentTime: {
+						type: String
 					}
         };
       }
@@ -147,9 +157,10 @@
 			connectedCallback() {
 				super.connectedCallback();
 				this.shadowRoot.querySelector('#name').select();
+				// set the locale for Moment.js
 				moment.updateLocale('en', {
 					relativeTime : {
-						future: 'in %s',
+						future: '(just added)',
 						past:	 '%s',
 						s:	'%ds',
 						mm: '%dm',
@@ -162,7 +173,14 @@
 						yy: '%d years'
 					}
 				});
+				// update waiting times every 10 seconds
+				setInterval(this.updateTime, 10000, this);
+				// invite people to contribute
 				console.log('Contribute: https://github.com/intcreator/byu-cs-260-help-queue');
+			}
+
+			updateTime(el) {
+				el.currentTime = moment().format()
 			}
 
 			addOne(position) {
@@ -170,7 +188,7 @@
 			}
 
 			calcTime(timeStamp) {
-				return moment(timeStamp).fromNow();
+				return moment(timeStamp).from(this.currentTime);
 			}
 
 			addStudentEnter(e) {
@@ -178,6 +196,7 @@
 			}
 
 			addStudent() {
+				if(this.student.name == '') return;
 				this.$['fire-doc'].data = {
 					name: this.student.name,
 					timeStamp: moment().toISOString()
@@ -189,6 +208,10 @@
 
 			removeStudent(e) {
 				this.$['fire-doc'].setStoredValue(this.path + "/" + e.target.key, null);
+			}
+
+			negate(length) {
+				return !length;
 			}
 
     }
